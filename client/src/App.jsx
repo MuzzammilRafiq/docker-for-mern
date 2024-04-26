@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+const baseurl = process.env.BASE_URL;
 function App() {
   const [list, setList] = useState([]);
   const [task, setTask] = useState("");
@@ -10,7 +11,7 @@ function App() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:3001/task", {
+      const res = await axios.post(`${baseurl}/task`, {
         task,
       });
     } catch (error) {
@@ -22,9 +23,7 @@ function App() {
   };
   const handleDelete = async (e) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3001/task/${e.target.value}`
-      );
+      const res = await axios.delete(`${baseurl}/task/${e.target.value}`);
     } catch (error) {
       console.log(error);
     }
@@ -33,12 +32,9 @@ function App() {
 
   const handleEdit = async (e) => {
     try {
-      const res = await axios.delete(
-        `http://localhost:3001/task/${e.target.value}`,
-        {
-          task: currentEdit,
-        }
-      );
+      const res = await axios.delete(`${baseurl}/task/${e.target.value}`, {
+        task: currentEdit,
+      });
     } catch (error) {
       console.log(error);
     }
@@ -48,7 +44,7 @@ function App() {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get("http://localhost:3001/task");
+      const res = await axios.get(`${baseurl}/task`);
       setList(res.data.tasks);
     })();
   }, [reload]);
