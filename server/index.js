@@ -102,5 +102,5 @@ const connectDB = () => {
 
 app.listen(PORT, () => {
   connectDB();
-  console.log("listing on port...", PORT);
+  console.log("listing on port...", PORT, __dirname, __filename);
 });
