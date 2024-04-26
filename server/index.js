@@ -25,10 +25,7 @@ const Task = mongoose.model("Task", TaskSchema);
 //models end
 
 //routes start
-app.use("/", async (req, res, next) => {
-  next();
-});
-app.post("/task", async (req, res) => {
+app.post("/api/task", async (req, res) => {
   try {
     const task = req.body.task;
     const response = await Task.create({ data: task });
@@ -44,7 +41,7 @@ app.post("/task", async (req, res) => {
   }
 });
 
-app.get("/task", async (req, res) => {
+app.get("/api/task", async (req, res) => {
   try {
     const response = await Task.find();
     if (!response) {
@@ -57,7 +54,7 @@ app.get("/task", async (req, res) => {
   }
 });
 
-app.delete("/task/:id", async (req, res) => {
+app.delete("/api/task/:id", async (req, res) => {
   try {
     const _id = req.params.id;
     console.log(_id);
@@ -73,7 +70,7 @@ app.delete("/task/:id", async (req, res) => {
   }
 });
 
-app.put("/task:id", async (req, res) => {
+app.put("/api/task:id", async (req, res) => {
   try {
     const _id = req.params.id;
     const data = req.body.data;

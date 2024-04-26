@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-const baseurl = process.env.BASE_URL;
+const baseurl = process.env.REACT_APP_BASE_URL;
 function App() {
   const [list, setList] = useState([]);
   const [task, setTask] = useState("");
@@ -47,6 +47,7 @@ function App() {
       const res = await axios.get(`${baseurl}/task`);
       setList(res.data.tasks);
     })();
+    console.log(baseurl);
   }, [reload]);
   return (
     <div
@@ -60,7 +61,7 @@ function App() {
         padding: "10px",
       }}
     >
-      {list.map((ll, i) => (
+      {list?.map((ll, i) => (
         <li key={i} style={{ display: "flex" }}>
           {/* {edit ? (
             <>

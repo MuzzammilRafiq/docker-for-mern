@@ -16,7 +16,7 @@ services:
     restart: unless-stopped
     env_file: ./server/config/${ENV}.env
     ports:
-      - "5000:5000"
+      - "3001:3001"
     networks:
       - mern-app
 networks:
