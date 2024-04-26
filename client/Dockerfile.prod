@@ -1,0 +1,27 @@
+### First Stage ###
+FROM node:18-slim AS builder
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm install
+
+COPY . .
+
+ARG BASE_URL
+ENV BASE_URL=${BASE_URL}
+
+RUN npm run build
+
+## 2nd Stage ##
+
+FROM caddy:2.1.1-alpine
+
+ARG CADDYFILE
+COPY ${CADDYFILE} /etc/caddy/Caddyfile
+
+COPY --from=builder /app/build/ /srv
+
+EXPOSE 80
+EXPOSE 443
